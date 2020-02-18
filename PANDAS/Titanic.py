@@ -53,8 +53,20 @@ print(data.loc[0:2,['age','sex']])
 
 #Excercice Feature Engineering (categorie d'age)
 print('--------------------------------------')
-data[ data.loc[:,'age']<21 ] = 0
-data[ (data.loc[:,'age']>20) & (data.loc[:,'age']<31)] = 1
-data[ (data.loc[:,'age']>30) & (data.loc[:,'age']<41)] = 2
-data[ data.loc[:,'age']>40 ] = 3
+'''
+data.loc[ data['age']<=20, 'age' ] = 0
+data.loc[ (data['age']>20) & (data['age']<=30), 'age'] = 1
+data.loc[ (data['age']>30) & (data['age']<=40), 'age'] = 2
+data.loc[ data['age']>40, 'age' ] = 3
 print(data['age'].value_counts())
+'''
+def cat_ages(age):
+    if age <= 20:
+        return '<20ans'
+    elif (age> 20) & (age<=30):
+        return '20-30 ans'
+    elif (age> 30) & (age<=40):
+        return '30-40 ans'
+    else:
+        return '+40ans'
+print(data['age'].map(cat_ages))
