@@ -52,8 +52,8 @@ print(btc_eth[['Close_btc', 'Close_eth']].corr())
 #Exercice stratégie de la tortue
 bitcoin['Sell']=np.zeros(len(bitcoin))
 bitcoin['Buy']=np.zeros(len(bitcoin))
-bitcoin.loc[ bitcoin['Close'] >= bitcoin['Close'].rolling(window=28).max() , 'Buy'] = 1
-bitcoin.loc[ bitcoin['Close'] <= bitcoin['Close'].rolling(window=28).min() , 'Sell'] = -1 
+bitcoin.loc[ bitcoin['Close'] > bitcoin['Close'].shift(1).rolling(window=28).max() , 'Buy'] = 1
+bitcoin.loc[ bitcoin['Close'] < bitcoin['Close'].shift(1).rolling(window=28).min() , 'Sell'] = -1 
 plt.figure(figsize=(12,8))
 bitcoin['2019']['Close'].plot()
 bitcoin['2019']['Close'].rolling(window=28).max().plot()
